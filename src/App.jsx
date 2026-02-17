@@ -1,5 +1,25 @@
-import React from 'react';
-import { ChevronRight, Users } from 'lucide-react';
+import React, { useState } from 'react';
+import { ChevronRight, Users, Linkedin } from 'lucide-react';
+
+const board = [
+  { role: 'President', name: 'Batu El', linkedin: 'https://www.linkedin.com/in/batu-el/' },
+  { role: 'Vice President', name: 'Onat Dalmaz', linkedin: 'https://www.linkedin.com/in/onat-dalmaz-0921a0168/' },
+  { role: 'Finance Officer', name: 'Orhun Akengin', linkedin: 'https://www.linkedin.com/in/orhun-akengin/' },
+  { role: 'IT Officer', name: 'Kuzey Kantarcioglu', linkedin: 'https://www.linkedin.com/in/kuzey-kantarcioglu/' },
+];
+
+const organizingTeam = [
+  { name: 'Alp Tartici', linkedin: 'https://www.linkedin.com/in/alp-tartici/' },
+  { name: 'Gulbin Atli', linkedin: 'https://www.linkedin.com/in/gulbin-atli/' },
+  { name: 'Melis Ata', linkedin: 'https://www.linkedin.com/in/melis-ata/' },
+  { name: 'Mert Karabiyik', linkedin: 'https://www.linkedin.com/in/mert-karabiyik/' },
+  { name: 'Lara Selin Seyahi', linkedin: 'https://www.linkedin.com/in/lara-selin-seyahi/' },
+  { name: 'Alperen Konukbak', linkedin: 'https://www.linkedin.com/in/alperen-konukbak/' },
+  { name: 'Beyza Kaya', linkedin: 'https://www.linkedin.com/in/beyza-kaya/' },
+  { name: 'Mehmet Cem Yedekci', linkedin: 'https://www.linkedin.com/in/mehmet-cem-yedekci/' },
+  { name: 'Mehmet Hamza Erol', linkedin: 'https://www.linkedin.com/in/mehmet-hamza-erol/' },
+  { name: 'Mete Erdogan', linkedin: 'https://www.linkedin.com/in/mete-erdogan/' },
+];
 
 const events = [
   {
@@ -26,9 +46,9 @@ const events = [
       {
         date: 'Nov 15',
         title: 'Turks in AI Forum @ Stanford',
-        subtitle: 'In partnership with Global Turks AI.',
+        subtitle: (<>In collaboration with <a href="https://globalturksai.org/" target="_blank" rel="noopener noreferrer" className="underline text-gray-400 hover:text-gray-500" onClick={(e) => e.stopPropagation()}>Global Turks AI</a>.</>),
         link: 'https://luma.com/n562pzk7',
-        attendees: 350,
+        attendees: 320,
         highlight: true,
       },
       {
@@ -71,15 +91,18 @@ const events = [
         date: 'Feb 26',
         title: 'Fireside Chat with Sinan Yaman, Founder of YGA',
         link: 'https://partiful.com/e/gIir2tiY4lJ72bQyhmy6?c=5BFOauaw',
-      },
-      {
-        date: 'Mar 4',
-        title: 'Panel with TUSIAD',
         upcoming: true,
       },
       {
-        date: 'Mar 5',
-        title: 'Panel with E2VC',
+        date: 'Mar 4',
+        title: 'A Conversation with TUSIAD',
+        link: 'https://partiful.com/e/amhEpKKh9Jza0XVYDns3?c=trelhgx7',
+        upcoming: true,
+      },
+      {
+        date: 'Mar 6',
+        title: 'Fireside Chat with Arin Ozkula, General Partner at E2VC',
+        link: 'https://partiful.com/e/FXPodRkmbLMaFeVhUAye?c=OjeNKo_a',
         upcoming: true,
       },
     ],
@@ -88,11 +111,10 @@ const events = [
     quarter: 'Spring 2026',
     items: [
       {
-        date: 'Apr 9',
-        title: 'Harvard AI Forum',
-        subtitle: 'We recommend our members to attend this event organized by our friends at Harvard.',
-        link: 'https://www.linkedin.com/posts/activity-7407806194070732800-Mpn-/?utm_source=share&utm_medium=member_ios&rcm=ACoAAAZgv4IBh3yzaWfFg-DdwfOdoZJGhjpe7Zg',
-        recommended: true,
+        date: 'Apr 5',
+        title: 'Turkish YC Founders at Stanford',
+        link: 'https://luma.com/jnf73xuc',
+        upcoming: true,
       },
       {
         date: 'TBA',
@@ -111,11 +133,9 @@ const events = [
 const EventRow = ({ event }) => {
   const content = (
     <div
-      className={`group flex items-baseline gap-4 py-3 px-4 -mx-4 rounded-lg transition-colors ${
-        event.highlight
-          ? 'ring-1 ring-turkish-red/20 bg-turkish-light/40 mx-0 px-4'
-          : 'hover:bg-gray-50'
-      } ${event.upcoming ? 'opacity-50' : ''}`}
+      className={`group flex items-baseline gap-4 py-3 px-4 -mx-4 rounded-lg transition-colors hover:bg-gray-50 ${
+        event.upcoming ? 'opacity-50' : ''
+      }`}
     >
       <span className="text-sm text-gray-400 w-14 flex-shrink-0 font-mono">
         {event.date}
@@ -131,19 +151,35 @@ const EventRow = ({ event }) => {
         )}
       </span>
 
-      {event.attendees && (
-        <span className="flex items-center gap-1 text-xs text-gray-400 flex-shrink-0">
-          <Users className="w-3 h-3" />
-          {event.attendeesLabel || event.attendees}
-        </span>
-      )}
+      <span className="w-12 flex-shrink-0 flex items-center justify-end gap-1 text-xs text-gray-400">
+        {event.attendees && (
+          <>
+            <Users className="w-3 h-3" />
+            {event.attendeesLabel || event.attendees}
+          </>
+        )}
+      </span>
 
-      {event.link && (
-        <span className="flex items-center gap-0.5 text-turkish-red text-sm font-medium flex-shrink-0 opacity-60 group-hover:opacity-100 transition-opacity">
-          LINK
-          <ChevronRight className="w-3 h-3" />
-        </span>
-      )}
+      <span className="w-12 flex-shrink-0 text-right">
+        {event.link && (
+          <span className="inline-flex items-center gap-0.5 text-turkish-red text-sm font-medium opacity-60 group-hover:opacity-100 transition-opacity">
+            LINK
+            <ChevronRight className="w-3 h-3" />
+          </span>
+        )}
+      </span>
+
+      <span className="w-16 flex-shrink-0 text-right">
+        {!event.upcoming && (
+          <a
+            href={`mailto:batuel@stanford.edu?subject=Feedback: ${encodeURIComponent(event.title)}`}
+            className="inline-flex items-center gap-0.5 text-gray-400 text-xs hover:text-gray-600 transition-colors"
+            onClick={(e) => e.stopPropagation()}
+          >
+            FEEDBACK
+          </a>
+        )}
+      </span>
     </div>
   );
 
@@ -178,6 +214,8 @@ const QuarterSection = ({ quarter, items }) => (
 );
 
 const App = () => {
+  const [tab, setTab] = useState('events');
+
   return (
     <div className="min-h-screen">
       {/* Header */}
@@ -192,18 +230,87 @@ const App = () => {
           <br />
           Student Association
         </h1>
+
+        {/* Tabs */}
+        <div className="flex justify-center gap-6 mt-8">
+          {['events', 'team'].map((t) => (
+            <button
+              key={t}
+              onClick={() => setTab(t)}
+              className={`text-sm font-medium uppercase tracking-widest pb-1 transition-colors ${
+                tab === t
+                  ? 'text-gray-900 border-b-2 border-turkish-red'
+                  : 'text-gray-400 hover:text-gray-600'
+              }`}
+            >
+              {t}
+            </button>
+          ))}
+        </div>
       </header>
 
-      {/* Events */}
       <main className="max-w-2xl mx-auto px-6 pb-20">
-        <h2 className="text-xl font-bold text-gray-900 mb-8">Events</h2>
-        {events.map((section, index) => (
-          <QuarterSection
-            key={index}
-            quarter={section.quarter}
-            items={section.items}
-          />
-        ))}
+        {tab === 'events' && (
+          <>
+            {events.map((section, index) => (
+              <QuarterSection
+                key={index}
+                quarter={section.quarter}
+                items={section.items}
+              />
+            ))}
+          </>
+        )}
+
+        {tab === 'team' && (
+          <div>
+            <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">
+              2025–2026 Board
+            </h2>
+            <div className="border-t border-gray-100 mb-10">
+              {board.map((member, index) => (
+                <div key={index} className="flex items-baseline gap-4 py-3">
+                  <span className="text-sm text-gray-400 w-36 flex-shrink-0">
+                    {member.role}
+                  </span>
+                  <span className="flex-1 text-gray-900 text-[15px]">
+                    {member.name}
+                  </span>
+                  {member.linkedin && (
+                    <a
+                      href={member.linkedin}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-400 hover:text-gray-600 transition-colors"
+                    >
+                      <Linkedin className="w-4 h-4" />
+                    </a>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <h2 className="text-sm font-semibold text-gray-400 uppercase tracking-widest mb-2">
+              Organizing Team
+            </h2>
+            <div className="border-t border-gray-100 pt-3">
+              <div className="flex flex-wrap gap-x-4 gap-y-2">
+                {organizingTeam.map((member, index) => (
+                  <a
+                    key={index}
+                    href={member.linkedin}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 text-gray-900 text-[15px] hover:text-gray-600 transition-colors"
+                  >
+                    {member.name}
+                    <Linkedin className="w-3.5 h-3.5 text-gray-400" />
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Footer */}
