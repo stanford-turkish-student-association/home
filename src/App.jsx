@@ -53,14 +53,14 @@ const events = [
       },
       {
         date: 'Nov 15',
-        title: 'Turks in AI Forum — After Party',
+        title: 'Turks in AI Forum After Party',
         link: 'https://partiful.com/e/ffORAQk0exKuaRW7ToVb?c=rCwnU25L',
         attendees: 64,
       },
       {
         date: 'Nov 19',
         title: 'A Conversation with Turkish Ambassador Sedat Onal',
-        attendees: 10,
+        link: 'https://en.wikipedia.org/wiki/Sedat_%C3%96nal',
       },
       {
         date: 'Dec 3',
@@ -101,7 +101,7 @@ const events = [
       },
       {
         date: 'Mar 6',
-        title: 'Fireside Chat with Arin Ozkula, General Partner at E2VC',
+        title: (<>Fireside Chat with <a href="https://www.vcleaders.com/vc-central-speakers/arin-ozkula" target="_blank" rel="noopener noreferrer" className="underline" style={{color: 'inherit'}} onClick={(e) => e.stopPropagation()}>Arin Ozkula</a>, General Partner at E2VC</>),
         link: 'https://partiful.com/e/FXPodRkmbLMaFeVhUAye?c=OjeNKo_a',
         upcoming: true,
       },
