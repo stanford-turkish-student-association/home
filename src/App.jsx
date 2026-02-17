@@ -30,18 +30,21 @@ const events = [
         title: 'TSA End of Summer Party',
         link: 'https://partiful.com/e/KHDxHjyCuY3hNLankaiK?c=4Mr4Sh7V',
         attendees: 38,
+        tag: 'social',
       },
       {
         date: 'Oct 4',
         title: 'Welcome to the Farm Mangal',
         link: 'https://partiful.com/e/hkLIruQfTFinFqxse0aD?c=UqYuRS64',
         attendees: 68,
+        tag: 'social',
       },
       {
         date: 'Nov 1',
-        title: '29 Ekim Cumhuriyet Yemegi',
+        title: 'Republic Day Dinner',
         link: 'https://partiful.com/e/Y8G12WP5C6lOUUS3CAMv?c=mWTSEdRO',
         attendees: 55,
+        tag: 'cultural',
       },
       {
         date: 'Nov 15',
@@ -50,17 +53,20 @@ const events = [
         link: 'https://luma.com/n562pzk7',
         attendees: 320,
         highlight: true,
+        tag: 'career',
       },
       {
         date: 'Nov 15',
         title: 'Turks in AI Forum After Party',
         link: 'https://partiful.com/e/ffORAQk0exKuaRW7ToVb?c=rCwnU25L',
         attendees: 64,
+        tag: 'social',
       },
       {
         date: 'Nov 19',
         title: 'A Conversation with Turkish Ambassador Sedat Onal',
         link: 'https://en.wikipedia.org/wiki/Sedat_%C3%96nal',
+        tag: 'cultural',
       },
       {
         date: 'Dec 3',
@@ -68,6 +74,7 @@ const events = [
         subtitle: 'Dinner meetup for Turkish researchers attending NeurIPS in San Diego.',
         link: 'https://partiful.com/e/F1Z0CxagpNmDCivxw0eG?c=3_PYXPiZ',
         attendees: 10,
+        tag: 'career',
       },
     ],
   },
@@ -79,6 +86,7 @@ const events = [
         title: 'A Conversation with Hasan Mandal, ITU President & Former TUBITAK President',
         link: 'https://partiful.com/e/h9qhLLLh5EtnDauSf3V5?c=DGIsfoPp',
         attendees: 25,
+        tag: 'career',
       },
       {
         date: 'Jan 31',
@@ -86,24 +94,34 @@ const events = [
         subtitle: 'In partnership with the Italian, Catalan, German, Scandinavian, and Greek student associations.',
         link: 'https://partiful.com/e/sAMvjM7rluqCWg7tyzmf?c=J0Y1g89m',
         attendees: 600,
+        tag: 'social',
       },
       {
         date: 'Feb 26',
-        title: 'Fireside Chat with Sinan Yaman, Founder of YGA',
+        title: (<>Fireside Chat with <a href="https://www.sinanyaman.org/" target="_blank" rel="noopener noreferrer" className="underline" style={{color: 'inherit'}} onClick={(e) => e.stopPropagation()}>Sinan Yaman</a>, Founder of YGA</>),
         link: 'https://partiful.com/e/gIir2tiY4lJ72bQyhmy6?c=5BFOauaw',
         upcoming: true,
+        tag: 'career',
       },
       {
         date: 'Mar 4',
-        title: 'A Conversation with TUSIAD',
+        title: (<>A Conversation with <a href="https://tusiad.org/en/silicon-valley-wg" target="_blank" rel="noopener noreferrer" className="underline" style={{color: 'inherit'}} onClick={(e) => e.stopPropagation()}>TUSIAD Silicon Valley Network</a></>),
         link: 'https://partiful.com/e/amhEpKKh9Jza0XVYDns3?c=trelhgx7',
         upcoming: true,
+        tag: 'career',
       },
       {
         date: 'Mar 6',
         title: (<>Fireside Chat with <a href="https://www.vcleaders.com/vc-central-speakers/arin-ozkula" target="_blank" rel="noopener noreferrer" className="underline" style={{color: 'inherit'}} onClick={(e) => e.stopPropagation()}>Arin Ozkula</a>, General Partner at E2VC</>),
         link: 'https://partiful.com/e/FXPodRkmbLMaFeVhUAye?c=OjeNKo_a',
         upcoming: true,
+        tag: 'career',
+      },
+      {
+        date: 'TBD',
+        title: 'Iftar with Turkish Students',
+        upcoming: true,
+        tag: 'cultural',
       },
     ],
   },
@@ -115,11 +133,13 @@ const events = [
         title: 'Turkish YC Founders at Stanford',
         link: 'https://luma.com/jnf73xuc',
         upcoming: true,
+        tag: 'career',
       },
       {
         date: 'TBA',
         title: 'Spring Mangal',
         upcoming: true,
+        tag: 'social',
       },
       {
         date: 'Jun 1',
@@ -129,6 +149,12 @@ const events = [
     ],
   },
 ];
+
+const tagColors = {
+  career: 'bg-blue-50 text-blue-500',
+  cultural: 'bg-amber-50 text-amber-600',
+  social: 'bg-green-50 text-green-500',
+};
 
 const EventRow = ({ event }) => {
   const content = (
@@ -143,7 +169,12 @@ const EventRow = ({ event }) => {
 
       <span className="flex-1 text-gray-900 text-[15px]">
         {event.title}
-        {event.upcoming && (
+        {event.tag && (
+          <span className={`ml-2 text-[10px] font-medium uppercase tracking-wider px-1.5 py-0.5 rounded ${tagColors[event.tag]}`}>
+            {event.tag}
+          </span>
+        )}
+        {event.upcoming && !event.tag && (
           <span className="ml-2 text-xs text-gray-400">(TBA)</span>
         )}
         {event.subtitle && (
