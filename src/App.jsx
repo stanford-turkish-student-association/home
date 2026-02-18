@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ChevronRight, Users, Linkedin } from 'lucide-react';
+import { ChevronRight, ChevronDown, Users, Linkedin } from 'lucide-react';
 
 const board = [
   { role: 'President', name: 'Batu El', linkedin: 'https://www.linkedin.com/in/batu-el/' },
@@ -54,6 +54,19 @@ const events = [
         attendees: 320,
         highlight: true,
         tag: 'career',
+        program: [
+          { time: '9:30 – 10:30 am', title: 'Welcome Brunch', detail: 'Networking & Bites' },
+          { time: '10:30 – 11:00 am', title: 'Opening Remarks', detail: 'Stanford Turkish Student Association, Global Turks AI & Supporters' },
+          { time: '11:00 – 11:40 am', title: 'AI Innovation with Researchers', detail: 'Ilge Akkaya (OpenAI), Sercan Arik (Google), Beliz Gunel (DeepMind)' },
+          { time: '11:40 – 12:20 pm', title: 'Enterprise AI Adoption with Executives', detail: 'Serdar Kadioglu (Fidelity), Ali Dasdan (Dropbox), Alper Tekin (You.com)' },
+          { time: '12:20 – 12:50 pm', title: 'Break', detail: 'Coffee & Tea' },
+          { time: '12:50 – 1:20 pm', title: 'AI Trends in the Enterprise World', detail: 'Burak Gokturk (Google)' },
+          { time: '1:20 – 2:00 pm', title: 'AI Investment with VC Partners', detail: 'Eylul Kayin (Gradient), Murat Bicer (CRV), Cagla Kaymaz (Category)' },
+          { time: '2:00 – 3:00 pm', title: 'Lunch Break', detail: 'Networking & Bites' },
+          { time: '3:00 – 3:40 pm', title: 'AI Entrepreneurship with Founders – 1', detail: 'Asude Altintas (Twin Robotics), Yusuf Ozuysal (Gr33n), Gulin Yilmaz (Rosette), Ike Kilinc (Traversal)' },
+          { time: '3:40 – 4:30 pm', title: 'AI Entrepreneurship with Founders – 2', detail: 'Atila Orhon (Argmax), Tunga Bayrak (Freya), Tugce Bulut (Eloquient), Sezer Ovunc (Snapshot)' },
+          { time: '4:30 – 6:00 pm', title: 'Recap & Celebration', detail: 'Networking & Bites' },
+        ],
       },
       {
         date: 'Nov 15',
@@ -157,7 +170,9 @@ const tagColors = {
 };
 
 const EventRow = ({ event }) => {
-  const content = (
+  const [expanded, setExpanded] = useState(false);
+
+  const row = (
     <div
       className={`group flex items-baseline gap-4 py-3 px-4 -mx-4 rounded-lg transition-colors hover:bg-gray-50 ${
         event.upcoming ? 'opacity-50' : ''
@@ -173,6 +188,15 @@ const EventRow = ({ event }) => {
           <span className={`ml-2 text-[10px] font-medium uppercase tracking-wider px-1.5 py-0.5 rounded ${tagColors[event.tag]}`}>
             {event.tag}
           </span>
+        )}
+        {event.program && (
+          <button
+            className="ml-2 text-[10px] font-medium uppercase tracking-wider px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 hover:bg-gray-200 transition-colors"
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); setExpanded(!expanded); }}
+          >
+            {expanded ? 'Hide Program' : 'Program'}
+            <ChevronDown className={`inline w-3 h-3 ml-0.5 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+          </button>
         )}
         {event.upcoming && !event.tag && (
           <span className="ml-2 text-xs text-gray-400">(TBA)</span>
@@ -201,34 +225,47 @@ const EventRow = ({ event }) => {
       </span>
 
       <span className="w-16 flex-shrink-0 text-right">
-        {!event.upcoming && (
-          <a
-            href={`mailto:batuel@stanford.edu?subject=Feedback: ${encodeURIComponent(event.title)}`}
-            className="inline-flex items-center gap-0.5 text-gray-400 text-xs hover:text-gray-600 transition-colors"
-            onClick={(e) => e.stopPropagation()}
-          >
-            FEEDBACK
-          </a>
-        )}
+        <a
+          href={`mailto:batuel@stanford.edu?subject=Feedback: ${encodeURIComponent(typeof event.title === 'string' ? event.title : 'Event')}`}
+          className="inline-flex items-center gap-0.5 text-gray-400 text-xs hover:text-gray-600 transition-colors"
+          onClick={(e) => e.stopPropagation()}
+        >
+          FEEDBACK
+        </a>
       </span>
+    </div>
+  );
+
+  const programSection = expanded && event.program && (
+    <div className="ml-[4.5rem] mb-4 border-l-2 border-gray-100 pl-4">
+      {event.program.map((item, i) => (
+        <div key={i} className="py-1.5">
+          <span className="text-xs font-mono text-gray-400">{item.time}</span>
+          <div className="text-sm font-medium text-gray-800">{item.title}</div>
+          <div className="text-xs text-gray-400">{item.detail}</div>
+        </div>
+      ))}
     </div>
   );
 
   if (event.link) {
     return (
-      <a
-        href={event.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        className="block"
-        style={{ color: 'inherit', textDecoration: 'none' }}
-      >
-        {content}
-      </a>
+      <div>
+        <a
+          href={event.link}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="block"
+          style={{ color: 'inherit', textDecoration: 'none' }}
+        >
+          {row}
+        </a>
+        {programSection}
+      </div>
     );
   }
 
-  return content;
+  return <div>{row}{programSection}</div>;
 };
 
 const QuarterSection = ({ quarter, items }) => (
