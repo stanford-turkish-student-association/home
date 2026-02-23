@@ -49,7 +49,7 @@ const events = [
       {
         date: 'Nov 15',
         title: 'Turks in AI Forum @ Stanford',
-        subtitle: (<>In collaboration with <a href="https://globalturksai.org/" target="_blank" rel="noopener noreferrer" className="underline text-gray-400 hover:text-gray-500" onClick={(e) => e.stopPropagation()}>Global Turks AI</a>.</>),
+        subtitle: (<>In collaboration with <a href="https://globalturksai.org/" target="_blank" rel="noopener noreferrer" className="underline text-gray-400 hover:text-gray-500" onClick={(e) => e.stopPropagation()}>Global Turks AI</a>. <a href="https://stanford-turkish-student-association.github.io/turks-in-ai-forum/" target="_blank" rel="noopener noreferrer" className="underline text-gray-400 hover:text-gray-500" onClick={(e) => e.stopPropagation()}>Website</a>.</>),
         link: 'https://luma.com/n562pzk7',
         attendees: 320,
         highlight: true,
@@ -79,6 +79,7 @@ const events = [
         date: 'Nov 19',
         title: 'A Conversation with Turkish Ambassador Sedat Onal',
         link: 'https://en.wikipedia.org/wiki/Sedat_%C3%96nal',
+        linkLabel: 'LINK',
         tag: 'cultural',
       },
       {
@@ -113,27 +114,26 @@ const events = [
         date: 'Feb 26',
         title: (<>Fireside Chat with <a href="https://www.sinanyaman.org/" target="_blank" rel="noopener noreferrer" className="underline" style={{color: 'inherit'}} onClick={(e) => e.stopPropagation()}>Sinan Yaman</a>, Founder of YGA</>),
         link: 'https://partiful.com/e/gIir2tiY4lJ72bQyhmy6?c=5BFOauaw',
-        upcoming: true,
         tag: 'career',
       },
       {
         date: 'Mar 4',
         title: (<>A Conversation with <a href="https://tusiad.org/en/silicon-valley-wg" target="_blank" rel="noopener noreferrer" className="underline" style={{color: 'inherit'}} onClick={(e) => e.stopPropagation()}>TUSIAD Silicon Valley Network</a></>),
         link: 'https://partiful.com/e/amhEpKKh9Jza0XVYDns3?c=trelhgx7',
-        upcoming: true,
         tag: 'career',
+        description: 'Opening Remarks: Ayşegül İldeniz, Chair of the TÜSİAD Silicon Valley Network.\n\nSpeakers:\nAylin Uysal, VP of Design, Oracle Cloud Applications\nMustafa Sakalsız, Founder & CEO, Peaka\nTimur Cüceloğlu Yarnall, AI Partners Director, Snowflake and Stanford Alum\nTutti Taygerly, Executive Coach, Author, Speaker, and Stanford Alum',
       },
       {
         date: 'Mar 6',
-        title: (<>Fireside Chat with <a href="https://www.vcleaders.com/vc-central-speakers/arin-ozkula" target="_blank" rel="noopener noreferrer" className="underline" style={{color: 'inherit'}} onClick={(e) => e.stopPropagation()}>Arin Ozkula</a>, General Partner at E2VC</>),
+        title: 'Fireside Chat with E2VC',
         link: 'https://partiful.com/e/FXPodRkmbLMaFeVhUAye?c=OjeNKo_a',
-        upcoming: true,
         tag: 'career',
+        description: 'Speakers:\nArın Özkula, General Partner at E2VC\nKaan Eren, Partner at E2VC\nTunya Irkad, Principal at E2VC',
       },
       {
-        date: 'TBD',
-        title: 'Iftar with Turkish Students',
-        upcoming: true,
+        date: 'Mar 14',
+        title: 'TSA Iftar',
+        link: 'https://partiful.com/e/W6mD43xJlXqqmE9jznzP',
         tag: 'cultural',
       },
     ],
@@ -141,19 +141,6 @@ const events = [
   {
     quarter: 'Spring 2026',
     items: [
-      {
-        date: 'Apr 5',
-        title: 'Turkish YC Founders at Stanford',
-        link: 'https://luma.com/jnf73xuc',
-        upcoming: true,
-        tag: 'career',
-      },
-      {
-        date: 'TBA',
-        title: 'Spring Mangal',
-        upcoming: true,
-        tag: 'social',
-      },
       {
         date: 'Jun 1',
         title: 'TSA Elections for 2026–2027 Board',
@@ -198,6 +185,15 @@ const EventRow = ({ event }) => {
             <ChevronDown className={`inline w-3 h-3 ml-0.5 transition-transform ${expanded ? 'rotate-180' : ''}`} />
           </button>
         )}
+        {event.description && (
+          <button
+            className="ml-2 text-[10px] font-medium uppercase tracking-wider px-1.5 py-0.5 rounded bg-gray-100 text-gray-500 hover:bg-gray-200 transition-colors"
+            onClick={(e) => { e.preventDefault(); e.stopPropagation(); setExpanded(!expanded); }}
+          >
+            {expanded ? 'Hide Details' : 'Details'}
+            <ChevronDown className={`inline w-3 h-3 ml-0.5 transition-transform ${expanded ? 'rotate-180' : ''}`} />
+          </button>
+        )}
         {event.upcoming && !event.tag && (
           <span className="ml-2 text-xs text-gray-400">(TBA)</span>
         )}
@@ -218,7 +214,7 @@ const EventRow = ({ event }) => {
       <span className="w-12 flex-shrink-0 text-right">
         {event.link && (
           <span className="inline-flex items-center gap-0.5 text-turkish-red text-sm font-medium opacity-60 group-hover:opacity-100 transition-opacity">
-            LINK
+            {event.linkLabel || 'RSVP'}
             <ChevronRight className="w-3 h-3" />
           </span>
         )}
@@ -226,7 +222,9 @@ const EventRow = ({ event }) => {
 
       <span className="w-16 flex-shrink-0 text-right">
         <a
-          href={`mailto:batuel@stanford.edu?subject=Feedback: ${encodeURIComponent(typeof event.title === 'string' ? event.title : 'Event')}`}
+          href="https://docs.google.com/forms/d/e/1FAIpQLSeWamPjMoe7kQ0Amr0exQFJ1232cdAHrlbbBPh0xGdqtTRy3Q/viewform"
+          target="_blank"
+          rel="noopener noreferrer"
           className="inline-flex items-center gap-0.5 text-gray-400 text-xs hover:text-gray-600 transition-colors"
           onClick={(e) => e.stopPropagation()}
         >
@@ -248,6 +246,18 @@ const EventRow = ({ event }) => {
     </div>
   );
 
+  const descriptionSection = expanded && event.description && (
+    <div className="ml-[4.5rem] mb-4 border-l-2 border-gray-100 pl-4">
+      {event.description.split('\n\n').map((paragraph, i) => (
+        <p key={i} className="text-sm text-gray-500 mb-2 last:mb-0">
+          {paragraph.split('\n').map((line, j, arr) => (
+            <React.Fragment key={j}>{line}{j < arr.length - 1 && <br />}</React.Fragment>
+          ))}
+        </p>
+      ))}
+    </div>
+  );
+
   if (event.link) {
     return (
       <div>
@@ -261,11 +271,12 @@ const EventRow = ({ event }) => {
           {row}
         </a>
         {programSection}
+        {descriptionSection}
       </div>
     );
   }
 
-  return <div>{row}{programSection}</div>;
+  return <div>{row}{programSection}{descriptionSection}</div>;
 };
 
 const QuarterSection = ({ quarter, items }) => (
