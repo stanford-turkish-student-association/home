@@ -2,23 +2,23 @@ import React, { useState } from 'react';
 import { ChevronRight, ChevronDown, Users, Linkedin } from 'lucide-react';
 
 const board = [
-  { role: 'President', name: 'Batu El', linkedin: 'https://www.linkedin.com/in/batu-el/' },
-  { role: 'Vice President', name: 'Onat Dalmaz', linkedin: 'https://www.linkedin.com/in/onat-dalmaz-0921a0168/' },
-  { role: 'Finance Officer', name: 'Orhun Akengin', linkedin: 'https://www.linkedin.com/in/orhun-akengin/' },
-  { role: 'IT Officer', name: 'Kuzey Kantarcioglu', linkedin: 'https://www.linkedin.com/in/kuzey-kantarcioglu/' },
+  { role: 'President', name: 'Batu El' },
+  { role: 'Vice President', name: 'Onat Dalmaz' },
+  { role: 'Finance Officer', name: 'Orhun Akengin' },
+  { role: 'IT Officer', name: 'Kuzey Kantarcioglu' },
 ];
 
 const organizingTeam = [
-  { name: 'Alp Tartici', linkedin: 'https://www.linkedin.com/in/alp-tartici/' },
-  { name: 'Gulbin Atli', linkedin: 'https://www.linkedin.com/in/gulbin-atli/' },
-  { name: 'Melis Ata', linkedin: 'https://www.linkedin.com/in/melis-ata/' },
-  { name: 'Mert Karabiyik', linkedin: 'https://www.linkedin.com/in/mert-karabiyik/' },
-  { name: 'Lara Selin Seyahi', linkedin: 'https://www.linkedin.com/in/lara-selin-seyahi/' },
-  { name: 'Alperen Konukbak', linkedin: 'https://www.linkedin.com/in/alperen-konukbak/' },
-  { name: 'Beyza Kaya', linkedin: 'https://www.linkedin.com/in/beyza-kaya/' },
-  { name: 'Mehmet Cem Yedekci', linkedin: 'https://www.linkedin.com/in/mehmet-cem-yedekci/' },
-  { name: 'Mehmet Hamza Erol', linkedin: 'https://www.linkedin.com/in/mehmet-hamza-erol/' },
-  { name: 'Mete Erdogan', linkedin: 'https://www.linkedin.com/in/mete-erdogan/' },
+  { name: 'Alp Tartici' },
+  { name: 'Gulbin Atli' },
+  { name: 'Melis Ata' },
+  { name: 'Mert Karabiyik' },
+  { name: 'Lara Selin Seyahi' },
+  { name: 'Alperen Konukbak' },
+  { name: 'Beyza Kaya' },
+  { name: 'Mehmet Cem Yedekci' },
+  { name: 'Mehmet Hamza Erol' },
+  { name: 'Mete Erdogan' },
 ];
 
 const events = [
@@ -97,7 +97,7 @@ const events = [
     items: [
       {
         date: 'Jan 28',
-        title: 'A Conversation with Hasan Mandal, ITU President & Former TUBITAK President',
+        title: (<>A Conversation with <a href="https://tr.wikipedia.org/wiki/Hasan_Mandal" target="_blank" rel="noopener noreferrer" className="underline" style={{color: 'inherit'}} onClick={(e) => e.stopPropagation()}>Hasan Mandal</a>, ITU President &amp; Former TUBITAK President</>),
         link: 'https://partiful.com/e/h9qhLLLh5EtnDauSf3V5?c=DGIsfoPp',
         attendees: 25,
         tag: 'career',
@@ -112,20 +112,20 @@ const events = [
       },
       {
         date: 'Feb 26',
-        title: (<>Fireside Chat with <a href="https://www.sinanyaman.org/" target="_blank" rel="noopener noreferrer" className="underline" style={{color: 'inherit'}} onClick={(e) => e.stopPropagation()}>Sinan Yaman</a>, Founder of YGA</>),
+        title: (<>Fireside Chat with <a href="https://www.sinanyaman.org/" target="_blank" rel="noopener noreferrer" className="underline" style={{color: 'inherit'}} onClick={(e) => e.stopPropagation()}>Sinan Yaman</a>, Founder of <a href="https://en.wikipedia.org/wiki/Young_Guru_Academy" target="_blank" rel="noopener noreferrer" className="underline" style={{color: 'inherit'}} onClick={(e) => e.stopPropagation()}>YGA</a></>),
         link: 'https://partiful.com/e/gIir2tiY4lJ72bQyhmy6?c=5BFOauaw',
         tag: 'career',
       },
       {
         date: 'Mar 4',
-        title: (<>A Conversation with <a href="https://tusiad.org/en/silicon-valley-wg" target="_blank" rel="noopener noreferrer" className="underline" style={{color: 'inherit'}} onClick={(e) => e.stopPropagation()}>TUSIAD Silicon Valley Network</a></>),
+        title: (<>Stanford TSA {'<>'} <a href="https://tusiad.org/en/silicon-valley-wg" target="_blank" rel="noopener noreferrer" className="underline" style={{color: 'inherit'}} onClick={(e) => e.stopPropagation()}>TÜSİAD</a>: Connect and Grow</>),
         link: 'https://partiful.com/e/amhEpKKh9Jza0XVYDns3?c=trelhgx7',
         tag: 'career',
         description: 'Opening Remarks: Ayşegül İldeniz, Chair of the TÜSİAD Silicon Valley Network.\n\nSpeakers:\nAylin Uysal, VP of Design, Oracle Cloud Applications\nMustafa Sakalsız, Founder & CEO, Peaka\nTimur Cüceloğlu Yarnall, AI Partners Director, Snowflake and Stanford Alum\nTutti Taygerly, Executive Coach, Author, Speaker, and Stanford Alum',
       },
       {
         date: 'Mar 6',
-        title: 'Fireside Chat with E2VC',
+        title: 'A Conversation with E2VC',
         link: 'https://partiful.com/e/FXPodRkmbLMaFeVhUAye?c=OjeNKo_a',
         tag: 'career',
         description: 'Speakers:\nArın Özkula, General Partner at E2VC\nKaan Eren, Partner at E2VC\nTunya Irkad, Principal at E2VC',
@@ -355,16 +355,6 @@ const App = () => {
                   <span className="flex-1 text-gray-900 text-[15px]">
                     {member.name}
                   </span>
-                  {member.linkedin && (
-                    <a
-                      href={member.linkedin}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-gray-400 hover:text-gray-600 transition-colors"
-                    >
-                      <Linkedin className="w-4 h-4" />
-                    </a>
-                  )}
                 </div>
               ))}
             </div>
@@ -375,16 +365,12 @@ const App = () => {
             <div className="border-t border-gray-100 pt-3">
               <div className="flex flex-wrap gap-x-4 gap-y-2">
                 {organizingTeam.map((member, index) => (
-                  <a
+                  <span
                     key={index}
-                    href={member.linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 text-gray-900 text-[15px] hover:text-gray-600 transition-colors"
+                    className="text-gray-900 text-[15px]"
                   >
                     {member.name}
-                    <Linkedin className="w-3.5 h-3.5 text-gray-400" />
-                  </a>
+                  </span>
                 ))}
               </div>
             </div>
