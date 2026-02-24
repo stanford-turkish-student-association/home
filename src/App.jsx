@@ -125,7 +125,7 @@ const events = [
       },
       {
         date: 'Mar 6',
-        title: 'A Conversation with E2VC',
+        title: 'Investor Insights with E2VC',
         link: 'https://partiful.com/e/FXPodRkmbLMaFeVhUAye?c=OjeNKo_a',
         tag: 'career',
         description: 'Speakers:\nArın Özkula, General Partner at E2VC\nKaan Eren, Partner at E2VC\nTunya Irkad, Principal at E2VC',
