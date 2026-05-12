@@ -144,7 +144,7 @@ const events = [
       {
         date: 'Apr 4',
         title: 'Stanford Turkish Founders Summit',
-        link: 'https://www.linkedin.com/feed/update/urn:li:activity:7447177604417200128',
+        link: 'https://luma.com/jnf73xuc',
         tag: 'career',
       },
       {
