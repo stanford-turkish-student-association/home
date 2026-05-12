@@ -142,6 +142,20 @@ const events = [
     quarter: 'Spring 2026',
     items: [
       {
+        date: 'Apr 4',
+        title: 'Stanford Turkish Founders Summit',
+        link: 'https://www.linkedin.com/feed/update/urn:li:activity:7447177604417200128',
+        tag: 'career',
+      },
+      {
+        date: 'May 16',
+        title: 'Fire on Fire',
+        subtitle: 'International food festival at Bechtel International Center.',
+        link: 'https://partiful.com/e/Zzjz9gPzJNkwEfbbBvz3',
+        upcoming: true,
+        tag: 'social',
+      },
+      {
         date: 'Jun 1',
         title: 'TSA Elections for 2026–2027 Board',
         upcoming: true,
